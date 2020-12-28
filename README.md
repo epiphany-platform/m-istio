@@ -7,6 +7,8 @@ Istio module is reponsible for deploying [Istio](https://istio.io/) on top of [(
 - [AWS Kubernetes Service](https://github.com/epiphany-platform/m-aws-kubernetes-service#run-module)
 - [Azure Kubernetes Servicee](https://github.com/epiphany-platform/m-azure-kubernetes-service#run-module)
 
+Istio is an open source platform which allows you to run a service mesh for distributed microservice architecture. It allows to connect, manage and run secure connections between microservices and brings a lot of features such as load balancing, monitoring and service-to-service authentication without any changes in service code.
+
 # Basic usage
 
 ## Build image
@@ -111,6 +113,64 @@ This will remove Istio from the EKS cluster followed by destroying the cluster a
   ```
 
 This will remove Istio from the AKS cluster followed by destroying the cluster and basic infrastructure.
+
+## How to set up service mesh for an application
+
+The default Istio installation use automcatic sidecar injection. You need to label the namespace where application will be hosted:
+
+```bash
+kubectl label namespace default istio-injection=enabled
+```
+
+Once the proper namespaces are labeled and Istio is deployed, you can deploy your applications or restart existing ones.
+
+You may need to make an application accessible from outside of your Kubernetes cluster. An Istio Gateway which was deployed using default profile is used for this purpose. Define the ingress gateway deploying gateway and virtual service specification. The gateway specification describes the L4-L6 properties of a load balancer and the virtual service specification describes the L7 properties of a load balancer.
+
+Example of the gateway and virtual service specification (You have to adapt the entire specification to the application):
+
+[Gateway](https://istio.io/latest/docs/reference/config/networking/gateway/):
+
+```yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: httpbin-gateway
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "httpbin.example.com"
+```
+
+[Virtual Service](https://istio.io/latest/docs/reference/config/networking/virtual-service/):
+
+```yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: httpbin
+spec:
+  hosts:
+  - "httpbin.example.com"
+  gateways:
+  - httpbin-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /status
+    - uri:
+        prefix: /delay
+    route:
+    - destination:
+        port:
+          number: 8000
+        host: httpbin
+```
 
 ## Release module
 
