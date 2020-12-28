@@ -48,3 +48,19 @@ spec:
     global:
        istioNamespace: $(M_ISTIO_NAMESPACE)
 endef
+
+define M_CONFIG_CONTROLPLANE_CUSTOMHUB_CONTENT
+---
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  namespace: $(M_FIRST_WATCHED_NAMESPACES)
+  name: $(M_CONTROLPLANE_NAME)
+spec:
+  profile: $(M_CONTROLPLANE_PROFILE)
+  hub: $(M_HUB)/istio
+  values:
+    global:
+       istioNamespace: $(M_ISTIO_NAMESPACE)
+endef
+

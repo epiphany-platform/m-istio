@@ -40,7 +40,7 @@ istioctl-plan:
 		--istioNamespace=$$(yq r $(M_CONFIG_PATH) 'istio.istio_namespace') \
 		--watchedNamespaces=$$(yq r $(M_CONFIG_PATH) 'istio.watched_namespaces')" ;\
 	if [ $$HUB != "unknown" ]; then \
-		ARGS="$$ARGS --hub=$$HUB" ;\
+		ARGS="$$ARGS --hub=$$HUB/istio" ;\
 	fi ;\
 	istioctl operator init $$ARGS
 
@@ -52,7 +52,7 @@ istioctl-apply:
 		--istioNamespace=$$(yq r $(M_CONFIG_PATH) 'istio.istio_namespace') \
 		--watchedNamespaces=$$(yq r $(M_CONFIG_PATH) 'istio.watched_namespaces')" ;\
 	if [ $$HUB != "unknown" ]; then \
-		ARGS="$$ARGS --hub=$$HUB" ;\
+		ARGS="$$ARGS --hub=$$HUB/istio" ;\
 	fi ;\
 	istioctl operator init $$ARGS;
 	@echo "deploying Istio controlplane";\
@@ -122,7 +122,12 @@ M_ALL_NAMESPACES := $(sort $(subst $(COMMA),$(SPACE),$(M_WATCHED_NAMESPACES)) $(
 template-controlplane-config-file:
 	#Istio | template-controlplane-config-file | will template controlplane config file
 	@$(file >$(M_CONTROLPLANE_CONFIG_PATH)) $(foreach ns,$(M_ALL_NAMESPACES),$(file >>$(M_CONTROLPLANE_CONFIG_PATH),$(call M_CONFIG_NAMESPACE_CONTENT,$(ns))))
-	@echo "$$M_CONFIG_CONTROLPLANE_CONTENT" >> $(M_CONTROLPLANE_CONFIG_PATH)
+	@@HUB=$$(yq r $(M_CONFIG_PATH) 'istio.hub');\
+	if [ $$HUB != "unknown" ]; then \
+		echo "$$M_CONFIG_CONTROLPLANE_CUSTOMHUB_CONTENT" >> $(M_CONTROLPLANE_CONFIG_PATH);\
+	else \
+		echo "$$M_CONFIG_CONTROLPLANE_CONTENT" >> $(M_CONTROLPLANE_CONFIG_PATH);\
+	fi
 
 display-config-file:
 	#Istio | display-config-file | config file content is:
