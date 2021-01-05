@@ -40,7 +40,7 @@ At this stage you should have already /tmp/shared directory with your ssh-keys, 
 * Initialize the Istio module:
 
   ```shell
-  docker run --rm -v /tmp/shared:/shared -t epiphanyplatform/Istio:latest init
+  docker run --rm -v /tmp/shared:/shared -t epiphanyplatform/istio:latest init
   ```
 
   This commad will create configuration file of AwsKS module in /tmp/shared/istio/istio-config.yml. You can investigate what is stored in that file.
