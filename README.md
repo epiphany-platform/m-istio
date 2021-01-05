@@ -22,7 +22,7 @@ In main directory run:
 or directly using Docker:
 
   ```shell
-  cd m-aws-basic-infrastructure/
+  cd m-istio/
   docker build --tag epiphanyplatform/istio:latest .
   ```
 
