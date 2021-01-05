@@ -83,7 +83,7 @@ At this stage you should have already /tmp/shared directory with your ssh-keys, 
   make destroy
   ```
 
-This will remove Istio from the EKS cluster followed by destroying the cluster and basic infrastructure.
+  This will remove Istio from the EKS cluster followed by destroying the cluster and basic infrastructure.
 
 ### AKS
 
