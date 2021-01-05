@@ -31,7 +31,7 @@ or directly using Docker:
 This module requires that you to already have a deployed EKS or AKS cluster using the following modules/instructions:
 
 - [AWS Kubernetes Service](https://github.com/epiphany-platform/m-aws-kubernetes-service#run-module)
-- [Azure Kubernetes Servicee](https://github.com/epiphany-platform/m-azure-kubernetes-service#run-module)
+- [Azure Kubernetes Service](https://github.com/epiphany-platform/m-azure-kubernetes-service#run-module)
 
 **Note : On AWS EKS make sure to have at least ```t.medium``` as node size**
 
