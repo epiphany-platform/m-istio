@@ -12,9 +12,9 @@ A clear and concise description of what the bug is.
 
 **How to reproduce**
 Steps to reproduce the behavior:
-1. execute `epicli init ... (with params)`
-2. edit config file 
-3. execute `epicli apply ...`
+1. execution
+2. config files
+3. etc...
 
 **Expected behavior**
 A clear and concise description of what you expected to happen.
