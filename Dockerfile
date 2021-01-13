@@ -12,20 +12,20 @@ ARG AWSCLI_VERSION=1.18.196
 WORKDIR /workdir
 ENTRYPOINT ["make"]
 
-#install make, YQ, kubectl and istioctl 
+#install make, python3
 RUN apk add --update --no-cache make=4.3-r0 tar python3 py-pip &&\
-
+    # Installing YQ
     wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -O /usr/bin/yq &&\
     chmod +x /usr/bin/yq &&\
-
+    # Installing kubectl
     wget https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl -O /usr/bin/kubectl &&\
     chmod +x /usr/bin/kubectl &&\
-
+    # Installing istioctl
     wget https://github.com/istio/istio/releases/download/${ISTIOCTL_VERSION}/istioctl-${ISTIOCTL_VERSION}-linux-amd64.tar.gz -O istioctl.tar.gz &&\
     tar -xzvf istioctl.tar.gz -C /usr/bin &&\
     rm istioctl.tar.gz &&\
     chmod +x /usr/bin/istioctl &&\
-
+    # Installing awscli
     pip install awscli==${AWSCLI_VERSION}
 
 ARG ARG_M_VERSION="unknown"
