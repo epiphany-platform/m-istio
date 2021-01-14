@@ -12,11 +12,11 @@ kind: $(M_MODULE_SHORT)-config
 $(M_MODULE_SHORT):
   hub: $(M_HUB)
   tag: $(M_TAG)
-  operator_namespace : $(M_OPERATOR_NAMESPACE)
-  istio_namespace : $(M_ISTIO_NAMESPACE)
-  watched_namespaces : $(M_WATCHED_NAMESPACES)
-  controlplane_name : $(M_CONTROLPLANE_NAME)
-  controlplane_profile : $(M_CONTROLPLANE_PROFILE)
+  operator_namespace: $(M_OPERATOR_NAMESPACE)
+  istio_namespace: $(M_ISTIO_NAMESPACE)
+  watched_namespaces: $(M_WATCHED_NAMESPACES)
+  controlplane_name: $(M_CONTROLPLANE_NAME)
+  controlplane_profile: $(M_CONTROLPLANE_PROFILE)
 endef
 
 define M_STATE_INITIAL
