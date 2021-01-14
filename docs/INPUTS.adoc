@@ -1,0 +1,31 @@
+== Input parameters
+
+[width="100%",cols="7%,1%,100%a,1%,100%a,50%a",options="header",]
+|===
+|Name |Type |Default value |Required |Steps |Description
+|AWS_ACCESS_KEY |string |unset |yes |plan, apply, plan-destroy, destroy |Access key id 
+(Only needed when using an EKS cluster)
+
+|AWS_SECRET_KEY |string |unset |yes |plan, apply, plan-destroy, destroy |Access key secret 
+(Only needed when using an EKS cluster)
+
+|M_HUB |string |unknown |no |init |The hub for the operator controller image. 
+Use this if you want to use your own private repo hosting the Istio images, if left to unknow it will use the official Istio repo.
+
+|M_TAG |string |1.8.1 |no |init |The tag for the operator controller image
+
+|M_OPERATOR_NAMESPACE |string |istio-operator |no |init |The namespace the 
+operator controller is installed into
+
+|M_ISTIO_NAMESPACE |string |istio-system |no |init |Istio system namespace
+
+|M_WATCHED_NAMESPACES |string |istio-system |no |init |The namespaces the operator controller watches, 
+could be namespace list separated by comma, eg. 'ns1,ns2'
+
+|M_CONTROLPLANE_NAME |string |istiocontrolplane |no |init |The name of the control plane
+
+|M_CONTROLPLANE_PROFILE |string |default |no |init |The profile that is used for the control plane, 
+can be default, demo, minimal, remote, empty or preview. 
+More information here: https://istio.io/latest/docs/setup/additional-setup/config-profiles/
+
+|===
